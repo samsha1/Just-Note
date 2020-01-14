@@ -2,25 +2,39 @@
 	"name": "Just Note",
 	"version": "0.1",
 	"description": "Just note is a chrome extension that allows user to save notes, image or any codeblocks",
-	//"permissions": ["activeTab","declarativeContent","storage","contextMenus","tabs"],
+	//"permissions": ["activeTab","declarativeContent","storage","background","contextMenus","tabs"],
+
 	// "options_page": "options.html",
-	"background": {
-      "scripts": ["background.js"]
-  },
-  "browser_action": {
-      "default_popup": "popup.html",
+   "browser_action": {
+      "default_title":"Just Note",
       "default_icon": {
         "16": "images/get_started16.png",
         "32": "images/get_started32.png",
         "48": "images/get_started48.png",
         "128": "images/get_started128.png"
-    	}
+      }
     },
+	"background": {
+      "page":"background.html",
+      "persistent":false
+  },
+  "permissions": [
+    "https://*/*",
+    "http://*/*",
+    "file://*/*",
+    "tabs",
+    "notifications",
+    "cookies",
+    "webNavigation",
+    "activeTab"
+  ],
     "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["js/jquery.min.js","content.js"]
+      "matches": ["http://*/*", "https://*/*", "file://*/*"],
+      "js": ["content-script.js"],
+      "run_at": "document_end"
     }
   ],
-	"manifest_version": 2
+	"manifest_version": 2,
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
