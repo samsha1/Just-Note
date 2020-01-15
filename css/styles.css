@@ -6,7 +6,7 @@ body {
 
 #editor-container {
   border: 1px solid #ccc;
-  height:375px;
+  height:275px;
 }
 
 #counter {
@@ -15,4 +15,10 @@ body {
   color: #aaa;
   padding: 5px 15px;
   text-align: right;
+}
+
+.save-btn{
+	position: relative;
+	top:20px;
+	padding: 5px;
 }
