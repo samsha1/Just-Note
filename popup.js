@@ -1,6 +1,9 @@
 var Delta = Quill.import('delta');
+SCRIPTS = [
+  "button.js"
+]
 document.addEventListener("DOMContentLoaded", function(event) {
-    var quill = new Quill('#editor-container', {
+  var quill = new Quill('#editor-container', {
     modules: {
       toolbar: [
         [{ header: [1, 2, false] }],
@@ -9,26 +12,35 @@ document.addEventListener("DOMContentLoaded", function(event) {
     placeholder: 'Compose a note...',
     theme: 'snow'  // or 'bubble'
   });
-   // console.log("dfs jkdsfjs djsd fjsd");
-   var change = new Delta();
-   quill.on('text-change',function(delta){
-      console.log("here we are");
-      change = change.compose(delta);
-  });
 
-  setInterval(checkLength,5*1000);
+  quill.setContent(chrome.storage.local.get('quillText'));
+
+   var change = new Delta();
+   quill.on('selection-change', function(range, oldRange, source) {
+        let quillText = quill.getText();
+        chrome.storage.local.set({ quillText });
+      });
+
+  //  quill.on('text-change',function(delta){
+  //     console.log("here we are");
+  //     change = change.compose(delta);
+  // });
+
+  //setInterval(checkLength,5*1000);
   
   function checkLength(){
-    if(change.length() > 0){
+    if(change){
       console.log('Saving changes',quill.getText());
       sendContent(quill.getText());
       change = new Delta();
     }
   }
 
+  
+
 // Check for unsaved data
   window.onbeforeunload = function() {
-    if (change.length() > 0) {
+    if (change) {
       alert("Chages is not saved Please Wait!");
     }
   }

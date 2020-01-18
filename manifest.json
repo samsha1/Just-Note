@@ -2,10 +2,7 @@
 	"name": "Just Note",
 	"version": "0.1",
 	"description": "Just note is a chrome extension that allows user to save notes, image or any codeblocks",
-	//"permissions": ["activeTab","declarativeContent","storage","background","contextMenus","tabs"],
-
-	// "options_page": "options.html",
-   "browser_action": {
+  "browser_action": {
       "default_title":"Just Note",
       "default_popup": "./popup.html",
       "default_icon": {
@@ -27,7 +24,8 @@
     "notifications",
     "cookies",
     "webNavigation",
-    "activeTab"
+    "activeTab",
+    "storage"
   ],
     "content_scripts": [
     {
